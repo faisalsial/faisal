@@ -38,21 +38,15 @@ class Question(models.Model):
     questionId = models.CharField(primary_key=True)
     questionLevel = models.CharField(choices=levels,max_length=2)
     questionType = models.CharField(choices=questionTypes,max_length=10)
-    questionAnswer = models.IntegerField(choices=index)
+    questionAnswer = models.IntegerField(choices=answerIndex)
     questionText = models.CharField(max_length=1000)
-    #questionOptions = models.
-    q = {
-            "questionLevel": "A2",
-            "questionType": "vocab",
-            "questionId": "asd12ejd",
-            "questionAnswer": "bring",
-            "questionText": "to take or carry someone or \
-                something to a place or a person, or \
-                in the direction of the person speaking",
-            "questionOptions": [
-                "bring",
-                "catch",
-                "follow",
-                "burn"
-            ],
-    }
+
+    def __str__(self):
+        return self.questionText
+
+class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    answerText = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.answerText
